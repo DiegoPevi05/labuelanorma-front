@@ -101,7 +101,7 @@ export default function GiveawayList() {
                   <h2 className="text-tertiary text-[12px] ">Inicia Sesión para poder participar del sorteo</h2>
 
                   <a 
-                    href="/sign-in"
+                    href="/#/sign-in"
                     className="inline-flex flex-shrink-0 justify-center items-center gap-2 h-[2.375rem] w-[12rem] rounded-lg font-medium bg-tertiary text-primary align-middle hover:bg-lime-100 hover:text-tertiary focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-md"> 
                       Iniciar Sesión 
                   </a>

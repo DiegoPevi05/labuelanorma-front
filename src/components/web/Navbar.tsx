@@ -26,9 +26,9 @@ interface userNavIt {
   href : string;
 }
 const navigationUser:userNavIt[] = [
-  { icon: <User/>,label:'Panel de Usuario', href: '/userpanel' },
-  { icon: <Store/>,label:'Ir a la Cachina', href: '/store' },
-  { icon: <ScrollText/>,label:'Historial de Compras', href: '/userpanel/order' }
+  { icon: <User/>,label:'Panel de Usuario', href: '/#/userpanel' },
+  { icon: <Store/>,label:'Ir a la Cachina', href: '/#/store' },
+  { icon: <ScrollText/>,label:'Historial de Compras', href: '/#/userpanel/order' }
 ]
 
 /*const user:UserIt = {
@@ -75,6 +75,10 @@ const Navbar = () => {
                 <span className="sr-only">Carrito</span>
                 <ShoppingCart className="h-8 w-8 text-secondary hover:text-white"/>
               </button>
+              <a href="/#/store">
+                <span className="sr-only">Store</span>
+                <Store className="h-8 w-8 text-secondary hover:text-white"/>
+              </a>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(true)}
@@ -99,12 +103,12 @@ const Navbar = () => {
                 <span className="sr-only">ShoppingCart</span>
                 <ShoppingCart className="h-8 w-8 text-secondary hover:text-white"/>
               </button>
-              <a href="/store">
+              <a href="/#/store">
                 <span className="sr-only">Store</span>
                 <Store className="h-8 w-8 text-secondary hover:text-white"/>
               </a>
               {!user ?
-                <a href="/sign-in" className="text-md font-semibold leading-6 red-text-gradient">
+                <a href="/#/sign-in" className="text-md font-semibold leading-6 red-text-gradient">
                   Inicio de Sesion <span aria-hidden="true">&rarr;</span>
                 </a>
                 :
@@ -154,7 +158,7 @@ const Navbar = () => {
                   >
                   <Dialog.Panel className="fixed inset-y-0 right-0 w-full overflow-y-auto  px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 red-orange-gradient">
                     <div className="flex items-center justify-between">
-                      <a href="#">
+                      <a href="/">
                         <span className="sr-only">La Abuela Norma</span>
                         <img
                         className="h-20 w-20"
@@ -198,7 +202,7 @@ const Navbar = () => {
                         </div>
                         {!user ?
                           <div className="py-6">
-                            <a href="/sign-in" className="block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 green-text-gradient hover:bg-gray-50">
+                            <a href="/#/sign-in" className="block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 green-text-gradient hover:bg-gray-50">
                               Iniciar Sesión
                             </a>
                           </div>

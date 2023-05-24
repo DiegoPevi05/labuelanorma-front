@@ -95,7 +95,7 @@ const SignIn = () => {
 
                 <div className="flex items-center justify-end">
                   <div className="text-sm">
-                    <a href="/recover-password" className="font-medium blue-text-gradient hover:blue-green-gradient">
+                    <a href="/#/recover-password" className="font-medium blue-text-gradient hover:blue-green-gradient">
                       Olvidaste tu contraseña?
                     </a>
                   </div>
@@ -113,7 +113,7 @@ const SignIn = () => {
                   </Button>
                 </div>
                 <div className="flex items-center justify-center">
-                  <a href="/register" className="font-medium blue-text-gradient hover:red-text-gradient">
+                  <a href="/#/register" className="font-medium blue-text-gradient hover:red-text-gradient">
                     ¿No tienes una cuenta?
                   </a>
                 </div>

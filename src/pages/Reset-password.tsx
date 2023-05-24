@@ -134,7 +134,7 @@ const RecoverPassword = () => {
                   </Button>
                 </div>
                 <div className="flex items-center justify-center">
-                  <a href="/sign-in" className="font-medium blue-text-gradient hover:red-text-gradient">
+                  <a href="/#/sign-in" className="font-medium blue-text-gradient hover:red-text-gradient">
                     ¿Iniciar Sesión con una cuenta?
                   </a>
                 </div>

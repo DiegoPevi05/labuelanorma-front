@@ -114,7 +114,7 @@ const Store = (propsStore:PropsStore) => {
             <img src={ZNStore} alt='zully_normal' className='absolute w-full h-full top-0 left-0 object-contain' />
             <img src={ZNStoreBorder} alt='zully_normal_Border' className='absolute w-full h-full top-0 left-0 object-contain' />
           </div>
-        <a href='/store' className="w-full sm:w-1/2 md:w-1/3 h-auto sm:h-auto flex justify-center">
+        <a href='/#/store' className="w-full sm:w-1/2 md:w-1/3 h-auto sm:h-auto flex justify-center">
             <motion.div
               variants={fadeIn("left", "spring", 1, 0.75)}
               className="w-auto h-36 sm:h-64 overflow-hidden flex justify-center items-center p-2"

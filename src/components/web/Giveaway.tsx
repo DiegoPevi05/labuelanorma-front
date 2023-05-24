@@ -150,13 +150,13 @@ const Giveaways = (giveawayProps:GiveawayProps) => {
 
                     <Link
                       variant="dark"
-                      href="/sign-in">
+                      href="/#/sign-in">
                         Iniciar Sesión 
                     </Link>
                   </div>
                   }
                 <Link variant="colorbg" size="sm" className="w-2/3"
-                    href="/giveaways" target="_blank">
+                    href="/#/giveaways">
                   Ver más Sorteos 
                   <ExternalLink className="ml-2"/> 
                 </Link>

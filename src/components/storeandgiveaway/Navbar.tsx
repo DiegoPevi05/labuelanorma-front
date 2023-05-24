@@ -29,31 +29,31 @@ const navigation:StoreNavIt = {
           id: 'Clothing',
           name: 'Vestimenta y Accsesorios',
           categories: [
-            { name: 'Chompas', href: '/store?section=Clothing&category=Chompas' },
-            { name: 'Polos', href: '/store?section=Clothing&category=Polos' },
-            { name: 'Gorras', href: '/store?section=Clothing&category=Gorras' },
-            { name: 'Piñata', href: '/store?section=Clothing&category=Piñata' },
-            { name: 'Lapiceros', href: '/store?section=Clothing&category=Lapiceros' },
-            { name: 'Cuadernos', href: '/store?section=Clothing&category=Cuadernos' },
-            { name: 'Aretes', href: '/store?section=Clothing&category=Aretes' }
+            { name: 'Chompas', href: '/#/store?section=Clothing&category=Chompas' },
+            { name: 'Polos', href: '/#/store?section=Clothing&category=Polos' },
+            { name: 'Gorras', href: '/#/store?section=Clothing&category=Gorras' },
+            { name: 'Piñata', href: '/#/store?section=Clothing&category=Piñata' },
+            { name: 'Lapiceros', href: '/#/store?section=Clothing&category=Lapiceros' },
+            { name: 'Cuadernos', href: '/#/store?section=Clothing&category=Cuadernos' },
+            { name: 'Aretes', href: '/#/store?section=Clothing&category=Aretes' }
           ],
         },
         {
           id: 'Food & Services',
           name: 'Comida y Servicios',
           categories: [
-            { name: 'Paneton de la Abuela Norma', href: '/store?section=Food%20%26%20Services&category=Paneton%20de%20la%20Abuela%20Norma' },
-            { name: 'Vino de la Abuela Norma', href: '/store?section=Food%20%26%20Services&category=Vino%20de%20la%20Abuela%20Norma' },
-            { name: 'Entrada Meet & Greet', href: '/store?section=Food%20%26%20Services&category=Entrada%20Meet%20%26%20Greet' }
+            { name: 'Paneton de la Abuela Norma', href: '/#/store?section=Food%20%26%20Services&category=Paneton%20de%20la%20Abuela%20Norma' },
+            { name: 'Vino de la Abuela Norma', href: '/#/store?section=Food%20%26%20Services&category=Vino%20de%20la%20Abuela%20Norma' },
+            { name: 'Entrada Meet & Greet', href: '/#/store?section=Food%20%26%20Services&category=Entrada%20Meet%20%26%20Greet' }
           ],
         },
       ],
     }
   ],
   pages: [
-    { name: 'Tienda', href: '/store' },
-    { name: 'Ir a Pagar', href: '/store/checkout' },
-    { name:'Sorteos y Concursos', href: '/giveaways' }
+    { name: 'Tienda', href: '/#/store' },
+    { name: 'Ir a Pagar', href: '/#/store/checkout' },
+    { name:'Sorteos y Concursos', href: '/#/giveaways' }
   ],
 }
 
@@ -208,12 +208,12 @@ export default function StoreNavbar() {
                 {user ? 
                   <>
                     <div className="flow-root">
-                      <a href="/userpanel" className="-m-2 block p-2 font-medium text-secondary">
+                      <a href="/#/userpanel" className="-m-2 block p-2 font-medium text-secondary">
                         Panel de Usuario 
                       </a>
                     </div>
                     <div className="flow-root">
-                      <a href="/userpanel/order" className="-m-2 block p-2 font-medium text-secondary">
+                      <a href="/#/userpanel/order" className="-m-2 block p-2 font-medium text-secondary">
                       Historial de Compras 
                       </a>
                     </div>
@@ -226,12 +226,12 @@ export default function StoreNavbar() {
                 :
                   <>
                     <div className="flow-root">
-                      <a href="#" className="-m-2 block p-2 font-medium text-secondary">
+                      <a href="/#/sign-in" className="-m-2 block p-2 font-medium text-secondary">
                        Iniciar Sesión 
                       </a>
                     </div>
                     <div className="flow-root">
-                      <a href="#" className="-m-2 block p-2 font-medium text-secondary">
+                      <a href="/#/register" className="-m-2 block p-2 font-medium text-secondary">
                         Registrate
                       </a>
                     </div>
@@ -414,11 +414,11 @@ export default function StoreNavbar() {
                               </div>
                               <div className="mt-2 py-2 first:pt-0 last:pb-0">
 
-                                <a key="Panel de Usuario" className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-secondary hover:bg-gray-100 focus:ring-2 focus:ring-secondary" href="/userpanel">
+                                <a key="Panel de Usuario" className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-secondary hover:bg-gray-100 focus:ring-2 focus:ring-secondary" href="/#/userpanel">
                                   <User className="text-secondary"/>
                                   Panel de Usuario 
                                 </a>
-                                <a key="Panel de Usuario" className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-secondary hover:bg-gray-100 focus:ring-2 focus:ring-secondary" href="/userpanel/order">
+                                <a key="Panel de Usuario" className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-secondary hover:bg-gray-100 focus:ring-2 focus:ring-secondary" href="/#/userpanel/order">
                                   <ScrollText className="text-secondary"/>
                                   Historial de Compras 
                                 </a>
@@ -433,11 +433,11 @@ export default function StoreNavbar() {
                   </div>
                 :
                   <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                    <a href="/sign-in" className="text-sm font-medium text-primary hover:text-tertiary">
+                    <a href="/#/sign-in" className="text-sm font-medium text-primary hover:text-tertiary">
                       Inciar Sesión
                     </a>
                     <span className="h-6 w-px bg-gray-200" aria-hidden="true" />
-                    <a href="/register" className="text-sm font-medium text-primary hover:text-tertiary">
+                    <a href="/#/register" className="text-sm font-medium text-primary hover:text-tertiary">
                       Registrate 
                     </a>
                   </div>
