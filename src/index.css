@@ -89,3 +89,27 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.bg-blurred::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("../src/assets/images/bgChicha.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px);
+  opacity: 0.8;
+  z-index: -1;
+}
+
+.bg-dark {
+  background-image: url("../src/assets/images/backgroundDark.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}

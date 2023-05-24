@@ -9,6 +9,8 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         default: 'bg-tertiary text-white hover:bg-secondary',
+        colorbg:'blue-green-gradient text-white',
+        dark:'bg-tertiary text-primary hover:bg-lime-100 hover:text-tertiary',
         ghost: 'bg-transparent hover:text-white hover:bg-secondary',
       },
       size: {

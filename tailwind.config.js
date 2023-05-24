@@ -23,11 +23,9 @@ module.exports = {
         heading: ['Dancing Script','sans-serif'],
         body: ['Poppins','sans-serif'],
       },
-      backgroundImage: {
-        "hero-pattern": "url('/src/assets/images/bgChicha.jpg')",
-      },
     },
   },
   plugins: [
+    require('@tailwindcss/forms'),
   ],
 };
