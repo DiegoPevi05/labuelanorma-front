@@ -67,28 +67,28 @@ export function mapInputDataProducts (data:any){
 
     if(Item.image_url_1 != null){
       images.push({
-        url:import.meta.env.VITE_BACKEND_URL+Item.image_url_1,
+        url:import.meta.env.VITE_BACKEND_URL_IMAGE+Item.image_url_1,
         alt:Item.name+"_image_1"
       });
     }
 
     if(Item.image_url_2 != null){
       images.push({
-        url:import.meta.env.VITE_BACKEND_URL+Item.image_url_2,
+        url:import.meta.env.VITE_BACKEND_URL_IMAGE+Item.image_url_2,
         alt:Item.name+"_image_2"
       });
     }
 
     if(Item.image_url_3 != null){
       images.push({
-        url:import.meta.env.VITE_BACKEND_URL+Item.image_url_3,
+        url:import.meta.env.VITE_BACKEND_URL_IMAGE+Item.image_url_3,
         alt:Item.name+"_image_3"
       });
     }
 
     if(Item.image_url_4 != null){
       images.push({
-        url:import.meta.env.VITE_BACKEND_URL+Item.image_url_4,
+        url:import.meta.env.VITE_BACKEND_URL_IMAGE+Item.image_url_4,
         alt:Item.name+"_image_4"
       });
     }
@@ -194,7 +194,7 @@ const mapHero  = (data:any) => {
 const mapAbout = (data:any) => {
   var dataMapped:any = {};
   dataMapped.body = (data.find((webData:any) => webData.section === "about" && webData.sub_section === "body") || {}).content;
-  dataMapped.image = import.meta.env.VITE_BACKEND_URL+(data.find((webData:any) => webData.section === "about" && webData.sub_section === "image") || {}).content;
+  dataMapped.image = import.meta.env.VITE_BACKEND_URL_IMAGE+(data.find((webData:any) => webData.section === "about" && webData.sub_section === "image") || {}).content;
   return dataMapped;
 }
 
@@ -241,7 +241,7 @@ const mapGiveawayData = (data:any) => {
     dataMapped.description = data.description;
     dataMapped.start_date = data.start_date;
     dataMapped.end_date = data.end_date;
-    dataMapped.image_url = import.meta.env.VITE_BACKEND_URL+data.image_url;
+    dataMapped.image_url = import.meta.env.VITE_BACKEND_URL_IMAGE+data.image_url;
   }
   return dataMapped;
 }
@@ -257,7 +257,7 @@ const mapProductsData = (data:any) => {
     productMapped.details = product.details;
     productMapped.price = product.price;
     productMapped.category_id = product.category_id;
-    productMapped.image = import.meta.env.VITE_BACKEND_URL+product.image_url_1;
+    productMapped.image = import.meta.env.VITE_BACKEND_URL_IMAGE+product.image_url_1;
     productMapped.href = "null";
     productMapped.tags = JSON.parse(product.tags).length > 0  ? JSON.parse(product.tags) : [] ;
     productMapped.isnew = product.is_new === 1 ? true : false;
@@ -274,7 +274,7 @@ const mapPartnersData = (data:any)=>{
     partnerMapped.id = partner.id;
     partnerMapped.name = partner.name;
     partnerMapped.description = partner.description;
-    partnerMapped.image = import.meta.env.VITE_BACKEND_URL+partner.image_brand;
+    partnerMapped.image = import.meta.env.VITE_BACKEND_URL_IMAGE+partner.image_brand;
     partnerMapped.link_content = partner.link_content;
     partnerMapped.brand_link = partner.brand_link;
     partnerMapped.tags = JSON.parse(partner.tags).length > 0  ? JSON.parse(partner.tags) : [] ;
@@ -294,7 +294,7 @@ export function mapInputGiveawaysData(data: any) {
     giveawayMapped.id = giveaway.id;
     giveawayMapped.name = giveaway.name;
     giveawayMapped.description = giveaway.description;
-    giveawayMapped.image_url = import.meta.env.VITE_BACKEND_URL+giveaway.image_url;
+    giveawayMapped.image_url = import.meta.env.VITE_BACKEND_URL_IMAGE+giveaway.image_url;
     giveawayMapped.start_date = giveaway.start_date;
     giveawayMapped.end_date = giveaway.end_date;
     giveawayMapped.alreadyIn = giveaway.alreadyIn;
