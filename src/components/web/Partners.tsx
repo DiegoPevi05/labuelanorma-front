@@ -12,7 +12,7 @@ interface PartnerCardProps extends PartnerData  {
 }
 
 const PartnerCard = (partnerCardProps:PartnerCardProps) => {
-  const { index, id, name, descriptionBrand, videoPublicity, brandPage, tags} = partnerCardProps;
+  const { index, id, name, description, image, link_content, brand_link, tags} = partnerCardProps;
 
   const [show, setShow] = useState(false);
 
@@ -29,7 +29,7 @@ const PartnerCard = (partnerCardProps:PartnerCardProps) => {
       <div className='relative w-full h-[270px] md:h-[400px] rounded-[20px]'
         >
             <iframe
-              src={videoPublicity}
+              src={link_content}
               title={name}
               className="w-full h-full rounded-[20px]"
               frameBorder="0"
@@ -38,13 +38,14 @@ const PartnerCard = (partnerCardProps:PartnerCardProps) => {
             ></iframe>
         </div>
         <div className='relative mt-5'>
-          <Link variant="colorbg" className="absolute w-auto right-0 top-0" 
-              href={brandPage} target="_blank">
+          <Link variant="dark" className="absolute w-auto right-0 top-0" 
+              href={brand_link} target="_blank">
               Ir al Sitio
             <ExternalLink className="ml-2"/> 
           </Link>
           <h3 className='green-text-gradient font-bold text-[24px]'>{name}</h3>
-          <p className='mt-2 text-tertiary  text-[12px] md:text-[14px] h-[100px]'>{descriptionBrand}</p>
+          <p className='mt-2 text-secondary  text-[12px] md:text-[14px] h-[100px]'>{description}</p>
+          <img src={image} alt={'brand_image'+id} className='relative w-[80px] md:w-[80px] h-auto object-contain' />
         </div>
         <div className='mt-4 flex flex-wrap gap-2'>
           {tags.map((tag,indextag) => (
@@ -90,7 +91,7 @@ const Partners = (partnersProps:PartnerProps) => {
                   variants={fadeIn("", "", 0.1, 1)}
                   className='hidden md:block mt-3 rounded-[20px] text-primary font-bold text-[17px] max-w-3xl leading-[30px]'
                 >
-                  {partnerWebData?.subheader ?? " "}
+                  {partnerWebData?.header ?? " "}
                 </motion.p>
                 <div className="hidden md:flex flex-row w-full justify-around items-center">
                   <img onClick={() => beforePartner()} src={ArrowLeft} alt='arrow_left' className='relative w-[200px] h-auto object-contain cursor-pointer' />

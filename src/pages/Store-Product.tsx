@@ -1,9 +1,19 @@
-import  { useState } from 'react'
 import { StoreNavbar,ProductDetail} from '../components/storeandgiveaway'
 import LoadingComponent from '../components/shared/LoadingComponent';
+import { UserIt,Category, FilterProductProps } from '../interfaces/global.ts'
 
-const MainStoreProduct = () => {
-  const [isLoading,] = useState<boolean>(false);
+interface MainStoreProductProps {
+  user : UserIt | undefined;
+  closeSession : () => void;
+  categories: Category;
+  isLoading: boolean;
+  filters: FilterProductProps;
+  changeFilters: (filters: FilterProductProps) => void;
+}
+
+const MainStoreProduct = (mainStoreProductProps:MainStoreProductProps) => {
+
+  const {user,closeSession,categories,isLoading, filters,changeFilters} = mainStoreProductProps;
 
   if(isLoading){
     return(
@@ -12,7 +22,7 @@ const MainStoreProduct = () => {
   }else{
     return (
       <>
-        <StoreNavbar/>
+      <StoreNavbar user={user} closeSession={closeSession} categories={categories}  changeFilters={changeFilters} filtersParent={filters}/>
         <ProductDetail/>
       </>
     )

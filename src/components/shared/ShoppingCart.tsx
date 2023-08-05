@@ -2,6 +2,8 @@ import { Fragment, useState,useEffect, useCallback } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import {X} from 'lucide-react';
 import {ItemShopCart} from '../../interfaces/global';
+import Link from '../ui/Link';
+import Button from '../ui/Button';
 
 interface PropShoppingCart {
   isOpen: boolean;
@@ -99,25 +101,24 @@ export default function ShoppingCartComp(propShoppingCart:PropShoppingCart) {
 
                                 <div className="ml-4 flex flex-1 flex-col">
                                   <div>
-                                    <div className="flex justify-between text-base font-medium text-tertiary">
+                                    <div className="flex justify-between text-base font-medium text-secondary">
                                       <h3>
                                         <p>{item.product.name}</p>
                                       </h3>
                                       <p className="ml-4">{item.product.price}</p>
                                     </div>
-                                    <p className="mt-1 text-sm text-secondary">{"Talla: "+ item.product.size}</p>
+                                    <p className="mt-1 text-sm text-secondary">{"Talla: "+ item.product.size.name}</p>
                                   </div>
                                   <div className="flex flex-1 items-end justify-between text-sm">
                                     <p className="text-gray-500">Cant. {item.quantity}</p>
 
                                     <div className="flex">
-                                      <button
+                                      <Button
+                                        variant="dark"
                                         onClick={(() => removeFromCart(item.product.id))}
-                                        type="button"
-                                        className="font-medium text-tertiary hover:text-secondary"
                                       >
-                                        Borrar
-                                      </button>
+                                        Remover
+                                      </Button>
                                     </div>
                                   </div>
                                 </div>
@@ -129,25 +130,26 @@ export default function ShoppingCartComp(propShoppingCart:PropShoppingCart) {
                     </div>
 
                     <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
-                      <div className="flex justify-between text-base font-medium text-tertiary">
+                      <div className="flex justify-between text-base font-medium text-secondary">
                         <p>Subtotal</p>
                         <p>{total} PEN</p>
                       </div>
-                      <p className="mt-0.5 text-sm text-tertiary">Envio e Impuestos calculados al Pagar.</p>
+                      <p className="mt-0.5 text-sm text-secondary">Envio e Impuestos calculados al Pagar.</p>
                       <div className="mt-6">
-                        <a
+                        <Link
+                          variant="dark"
                           href="/store/checkout"
-                          className="flex items-center justify-center rounded-md border border-transparent blue-green-gradient px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                          className="font-medium flex items-center justify-center rounded-md px-6 py-3 shadow-sm"
                         >
                           Ir a Pagar
-                        </a>
+                        </Link>
                       </div>
                       <div className="mt-6 flex justify-center text-center text-sm blue-text-gradient ">
                         <p>
                           {'o '}
                           <button
                             type="button"
-                            className="font-medium blue-text-gradient hover:text-indigo-500"
+                            className="font-medium text-tertiary hover:text-indigo-500"
                             onClick={() => closeShoppingCart()}
                           >
                             Continuar Comprando 

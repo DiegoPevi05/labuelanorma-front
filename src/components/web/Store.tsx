@@ -4,9 +4,9 @@ import { styles } from "../../styles";
 import { StoreHeader,StoreGoHeader,ZNStore,ZNStoreBorder,LabelNew,ArrowDown,ArrowLeft,ArrowRight } from "../../assets/images";
 import { SectionWrapper } from "../ui/hoc";
 import { fadeIn, textVariant } from "../../lib/motion";
-import { StoreData } from "../../interfaces/web";
+import { ProductData } from "../../interfaces/web";
 
-interface PropsStoreItem extends StoreData {
+interface PropsStoreItem extends ProductData {
   index: number;
 }
 
@@ -25,7 +25,7 @@ const StoreItem = (propsStoreItem:PropsStoreItem) => {
       animate={show ? 'show' : 'hidden'}
     >
       <div
-        className='h-[300px] sm:h-full bg-secondary p-3 rounded-2xl w-[300px] hover:translate-y-[-10px] duration-300 ease-in-out shadow-cardlight'
+        className='h-[300px] sm:h-[400px] bg-fourth p-3 rounded-2xl w-[300px] hover:translate-y-[-10px] duration-300 ease-in-out shadow-cardlight'
       >
         <div className='relative w-full h-[100px] sm:h-[160px] cursor-pointer'
             onClick={() => window.open(href, "_blank")}
@@ -58,7 +58,7 @@ const StoreItem = (propsStoreItem:PropsStoreItem) => {
           <p className='mt-2 text-primary text-[12px] sm:text-[14px]'>{description}</p>
         </div>
         <div className='mt-4 flex flex-wrap gap-2'>
-          {tags.map((tag,index) => (
+          {tags.map((tag:any,index:any) => (
             <p
               key={`tag-${id}-${index}`}
               className={`text-[14px] blue-green-gradient rounded-md px-1 text-white hover:translate-y-[-5px] ease-in-out duration-700`}
@@ -73,13 +73,13 @@ const StoreItem = (propsStoreItem:PropsStoreItem) => {
 };
 
 interface PropsStore {
-  storeData: StoreData[];
+  storeData: ProductData[];
 }
 
 const Store = (propsStore:PropsStore) => {
   const {storeData} = propsStore;
 
-  const [itemStore, setItemStore] = useState<StoreData[]>([]);
+  const [itemStore, setItemStore] = useState<ProductData[]>([]);
   const [currentCard,setCurrentCard] = useState(0);
   const [activeCarrousel,setActiveCarrousel] = useState(false);
 

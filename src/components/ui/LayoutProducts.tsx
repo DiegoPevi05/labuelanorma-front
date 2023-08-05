@@ -1,78 +1,17 @@
-import { Fragment, useState, useEffect} from 'react'
-import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react'
-import { X, ChevronDown, Filter, Minus, Plus, BoxSelect  } from 'lucide-react'
+import { Fragment, useState} from 'react'
+import { Dialog, Menu, Transition } from '@headlessui/react'
+import { X, ChevronDown, Filter, BoxSelect,Loader2  } from 'lucide-react'
 import { WelcomeStore } from '../../assets/images'
-import {FilterProductProps} from "../../interfaces/global";
+import {FilterProductProps, Category} from "../../interfaces/global";
+import Pagination from "../shared/Pagination.tsx";
 
 
-interface SectionProp {
-  name:string;
-  label:string;
-  options:SectionOptionProp[];
-}
-
-interface SectionOptionProp{
-  value:string;
-  checked:boolean;
-}
-
-const sortOptions = [
-  { name: 'Mas Popular', current: true },
-  { name: 'Mas Comprado', current: false },
+const sortOptions:any = [
   { name: 'Lo Nuevo', current: false },
   { name: 'Precio: Menor a Mayor', current: false },
   { name: 'Precio: Mayor a Menor', current: false }
 ]
 
-const sections:SectionProp[] = [
-  { name: 'Clothing', 
-    label: 'Ropa y Vestimenta', 
-    options:[
-      { value: 'Chompas',checked: false },
-      { value: 'Polos', checked: false },
-      { value: 'Gorras', checked: false },
-      { value: 'Piñata', checked: false },
-      { value: 'Lapiceros', checked: false },
-      { value: 'Cuadernos', checked: false },
-      { value: 'Aretes', checked: false }
-    ]
-  },
-  { name: 'Food & Services',
-    label:'Comida y servicios',
-    options:[
-      { value: 'Paneton de la Abuela Norma', checked: false },
-      { value: 'Vino de la Abuela Norma', checked: false },
-      { value: 'Entrada Meet & Greet', checked: false }
-    ]
-  }
-]
-
-interface SizesProps {
-  id:string;
-  name:string;
-  options:SizesOptionProps[];
-}
-
-interface SizesOptionProps {
-  value:string;
-  label:string;
-  checked:boolean;
-}
-
-const sizes = {
-    id: 'size',
-    name: 'Size',
-    options: [
-      { value: 'XXS', label: 'XXS', checked: false },
-      { value: 'XS', label: 'XS', checked: false },
-      { value: 'S', label: 'S', checked: false },
-      { value: 'M', label: 'M', checked: false },
-      { value: 'L', label: 'L', checked: false },
-      { value: 'XL', label: 'XL', checked: false },
-      { value: '2XL', label: '2XL', checked: false },
-      { value: '3XL', label: '3XL', checked: false }
-    ],
-  }
 
 function classNames(...classes:any) {
   return classes.filter(Boolean).join(' ')
@@ -82,65 +21,24 @@ interface LayoutProductsProps {
   children: React.ReactNode;
   changeFilters: (filters: FilterProductProps) => void;
   filtersParent: FilterProductProps;
+  categories: Category;
+  currentPage: number;
+  totalPages: number;
+  selectedPage: (page:number) => void;
+  loadingContent: boolean;
 }
 
 const LayoutProducts = (layoutProductProps:LayoutProductsProps) => {
-  const { children,changeFilters,filtersParent } = layoutProductProps; 
+  const { children,changeFilters,filtersParent, categories, currentPage, totalPages,selectedPage,loadingContent  } = layoutProductProps; 
+
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState<boolean>(false);
-  const [currentFilters, ] = useState<FilterProductProps>(filtersParent);
-  const [currentSection,setCurrentSection] = useState<SectionProp|undefined>(undefined);
-  const [categories,setCategories] = useState<SectionOptionProp[]>([]);
-  const [sizesOptions,setSizesOptions] = useState<SizesProps>(sizes);
-
-
-  useEffect(()=>{
-    if(filtersParent){
-      if(filtersParent.section != 'All'){
-        setCategories((prevState: SectionOptionProp[]) => {
-          const findSection = sections.find(section => section.name === filtersParent.section);
-          const updatedOptions = findSection?.options.map(item => {
-            if (item.value === filtersParent.category) {
-              return { ...item, checked: true };
-            } else {
-              return { ...item, checked: false };
-            }
-          });
-
-          return updatedOptions || prevState;
-        });
-     } 
-
-     if(filtersParent.size != 'All'){
-       setSizesOptions(prevSizeOptions => {
-         const updatedSizes = sizesOptions?.options.map(size => {
-           if(size.value === filtersParent.size){
-             return { ...size, checked:true }
-           }else{
-              return { ...size,checked:false }
-           }
-         })
-         return {...prevSizeOptions, options:updatedSizes};
-       });
-     }
-    }
-
-  },[filtersParent])
 
   const updateSectionFilter = (section:string) => {
-    changeFilters({...currentFilters, section:section});
-    setCurrentSection(sections.filter((item) => item.name === section)[0]);
-  }
-
-  const updateCategoryFilter = (category:string) => {
-    changeFilters({...currentFilters, section:filtersParent.section, category:category});
-  }
-
-  const updateSizeFilter = (size:string) => {
-    changeFilters({...currentFilters,section:filtersParent.section, category:filtersParent.category, size:size});
+    changeFilters({...filtersParent, section:section});
   }
 
   const updateOrderOptionFilter = (orderOption:string) => {
-    changeFilters({...currentFilters, orderOption:orderOption});
+    changeFilters({...filtersParent, order:orderOption});
   }
 
   return (
@@ -184,102 +82,15 @@ const LayoutProducts = (layoutProductProps:LayoutProductsProps) => {
                     </button>
                   </div>
 
-                  {/* Filters */}
                   <div className="mt-4 border-t border-gray-200">
                     <h3 className="sr-only">Categories</h3>
                     <ul role="list" className="px-2 py-3 font-medium text-gray-900">
-                      {sections.map((category) => (
-                        <button key={category.name} onClick={()=>updateSectionFilter(category.name)} className="block px-2 py-3 text-secondary font-bold">
-                          {category.label}
+                      {categories.sections.map((category:any) => (
+                        <button key={category.section} onClick={()=>updateSectionFilter(category.section)} className="block px-2 py-3 text-secondary font-bold">
+                          {category.section}
                         </button>
                       ))}
                     </ul>
-
-                    {currentSection != undefined && (
-                          <Disclosure as="div" key={currentSection?.name?? ""} className="border-t border-gray-200 px-4 py-6">
-                            {({ open }) => (
-                              <>
-                                <h3 className="-mx-2 -my-3 flow-root">
-                          <Disclosure.Button className="flex w-full items-center justify-between red-orange-gradient rounded-md py-3 px-4 text-sm text-gray-400 hover:text-gray-500">
-                                    <span className="font-medium text-white">{currentSection?.name?? " "}</span>
-                                    <span className="ml-6 flex items-center">
-                                      {open ? (
-                                        <Minus className="h-5 w-5 text-white" aria-hidden="true" />
-                                      ) : (
-                                        <Plus className="h-5 w-5 text-white" aria-hidden="true" />
-                                      )}
-                                    </span>
-                                  </Disclosure.Button>
-                                </h3>
-                                <Disclosure.Panel className="pt-6">
-                                  <div className="space-y-6">
-                                    {categories?.map((option, optionIdx) => (
-                                      <div key={option.value} className="flex items-center">
-                                        <input
-                                          id={`filter-mobile-${currentSection.name}-${optionIdx}`}
-                                          name={`${currentSection.name}[]`}
-                                          defaultValue={option.value}
-                                          type="checkbox"
-                                          checked={option.checked}
-                                          onChange={()=>updateCategoryFilter(option.value)}
-                                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                        />
-                                        <label
-                                          htmlFor={`filter-mobile-${currentSection.name}-${optionIdx}`}
-                                          className="ml-3 min-w-0 flex-1 text-white"
-                                        >
-                                          {option.value}
-                                        </label>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </Disclosure.Panel>
-                              </>
-                            )}
-                          </Disclosure>
-                      )}
-
-                      <Disclosure as="div" key={sizesOptions.id} className="border-t border-gray-200 px-4 py-6">
-                        {({ open }) => (
-                          <>
-                            <h3 className="-mx-2 -my-3 flow-root">
-                          <Disclosure.Button className="flex w-full items-center justify-between red-orange-gradient rounded-md py-3 px-4 text-sm text-gray-400 hover:text-gray-500">
-                                <span className="font-medium text-white">{sizesOptions.name}</span>
-                                <span className="ml-6 flex items-center">
-                                  {open ? (
-                                    <Minus className="h-5 w-5 text-white" aria-hidden="true" />
-                                  ) : (
-                                    <Plus className="h-5 w-5 text-white" aria-hidden="true" />
-                                  )}
-                                </span>
-                              </Disclosure.Button>
-                            </h3>
-                            <Disclosure.Panel className="pt-6">
-                              <div className="space-y-6">
-                                {sizesOptions.options.map((option, optionIdx) => (
-                                  <div key={option.value} className="flex items-center">
-                                    <input
-                                      id={`filter-mobile-${sizesOptions.id}-${optionIdx}`}
-                                      name={`${sizesOptions.id}[]`}
-                                      defaultValue={option.value}
-                                      type="checkbox"
-                                      checked={option.checked}
-                                      onChange={()=>updateSizeFilter(option.value)}
-                                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                    />
-                                    <label
-                                      htmlFor={`filter-mobile-${sizesOptions.id}-${optionIdx}`}
-                                      className="ml-3 min-w-0 flex-1 text-white"
-                                    >
-                                      {option.label}
-                                    </label>
-                                  </div>
-                                ))}
-                              </div>
-                            </Disclosure.Panel>
-                          </>
-                        )}
-                      </Disclosure>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -288,15 +99,18 @@ const LayoutProducts = (layoutProductProps:LayoutProductsProps) => {
         </Transition.Root>
 
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-baseline justify-between border-b border-secondary pb-6 pt-24">
+
+
+          <div className="flex items-baseline justify-between border-b border-fifth pb-6 pt-24">
             <img src={WelcomeStore} alt='contact_header' className='relative h-32 w-auto  object-contain' />
+
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
                 <div>
-                  <Menu.Button className="group inline-flex justify-center text-sm font-medium text-white hover:text-secondary">
-                    Sort
+                  <Menu.Button className="group inline-flex justify-center text-sm font-medium text-secondary hover:text-primary">
+                    Ordenar
                     <ChevronDown
-                      className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-white group-hover:text-secondary"
+                      className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-secondary group-hover:text-primary"
                       aria-hidden="true"
                     />
                   </Menu.Button>
@@ -313,7 +127,7 @@ const LayoutProducts = (layoutProductProps:LayoutProductsProps) => {
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-primary shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <div className="py-1">
-                      {sortOptions.map((option) => (
+                      {sortOptions.map((option:any) => (
                         <Menu.Item key={option.name}>
                           {({ active }) => (
                             <button
@@ -354,106 +168,28 @@ const LayoutProducts = (layoutProductProps:LayoutProductsProps) => {
             </h2>
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-              {/* Filters */}
               <div className="hidden lg:block">
                 <h3 className="sr-only">Categorias</h3>
-                <ul role="list" className="space-y-4 border-b border-secondary pb-6 text-sm font-medium">
-                  {sections.map((category) => (
-                    <button key={category.name} onClick={()=>updateSectionFilter(category.name)} className="block px-2 py-3 text-secondary font-bold">
-                      {category.label}
+                <ul role="list" className="space-y-4 border-b border-fifth pb-6 text-sm font-medium">
+                  {categories?.sections.map((category:any) => (
+                    <button key={category.section} onClick={()=>updateSectionFilter(category.section)} className="block px-2 py-3 text-secondary hover:text-primary font-bold">
+                      {category.section}
                     </button>
                   ))}
                 </ul>
-
-                {currentSection != undefined && (
-                  <Disclosure as="div" key={currentSection?.name?? " "} className="border-b border-gray-200 py-6">
-                    {({ open }) => (
-                      <>
-                        <h3 className="-my-3 flow-root">
-                          <Disclosure.Button className="flex w-full items-center justify-between red-orange-gradient rounded-md py-3 px-4 text-sm text-gray-400 hover:text-gray-500">
-                            <span className="font-medium text-white">{currentSection?.name?? " "}</span>
-                            <span className="ml-6 flex items-center">
-                              {open ? (
-                                <Minus className="h-5 w-5" aria-hidden="true" />
-                              ) : (
-                                <Plus className="h-5 w-5" aria-hidden="true" />
-                              )}
-                            </span>
-                          </Disclosure.Button>
-                        </h3>
-                        <Disclosure.Panel className="pt-6">
-                          <div className="space-y-4">
-                            {categories?.map((option, optionIdx) => (
-                              <div key={option.value} className="flex items-center">
-                                <input
-                                  id={`filter-${currentSection.name}-${optionIdx}`}
-                                  name={`${currentSection.name}[]`}
-                                  defaultValue={option.value}
-                                  type="checkbox"
-                                  checked={option.checked}
-                                  onChange={()=>updateCategoryFilter(option.value)}
-                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label
-                                  htmlFor={`filter-${currentSection.name}-${optionIdx}`}
-                                  className="ml-3 text-sm text-gray-600"
-                                >
-                                  {option.value}
-                                </label>
-                              </div>
-                            ))}
-                          </div>
-                        </Disclosure.Panel>
-                      </>
-                    )}
-                  </Disclosure>
-                )}
-
-                  <Disclosure as="div" key={sizesOptions.id} className="border-b border-gray-200 py-6">
-                    {({ open }) => (
-                      <>
-                        <h3 className="-my-3 flow-root">
-                          <Disclosure.Button className="flex w-full items-center justify-between red-orange-gradient rounded-md py-3 px-4 text-sm text-gray-400 hover:text-gray-500">
-                            <span className="font-medium text-white">{sizesOptions.name}</span>
-                            <span className="ml-6 flex items-center">
-                              {open ? (
-                                <Minus className="h-5 w-5" aria-hidden="true" />
-                              ) : (
-                                <Plus className="h-5 w-5" aria-hidden="true" />
-                              )}
-                            </span>
-                          </Disclosure.Button>
-                        </h3>
-                        <Disclosure.Panel className="pt-6">
-                          <div className="space-y-4">
-                            {sizesOptions.options.map((option, optionIdx) => (
-                              <div key={option.value} className="flex items-center">
-                                <input
-                                  id={`filter-${sizesOptions.id}-${optionIdx}`}
-                                  name={`${sizesOptions.id}[]`}
-                                  defaultValue={option.value}
-                                  type="checkbox"
-                                  checked={option.checked}
-                                  onChange={()=>updateSizeFilter(option.value)}
-                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label
-                                  htmlFor={`filter-${sizesOptions.id}-${optionIdx}`}
-                                  className="ml-3 text-sm text-gray-600"
-                                >
-                                  {option.label}
-                                </label>
-                              </div>
-                            ))}
-                          </div>
-                        </Disclosure.Panel>
-                      </>
-                    )}
-                  </Disclosure>
               </div>
-              <div className="lg:col-span-3">
-                {children}
-              </div>
+              {!loadingContent ?
+                <>
+                <div className="lg:col-span-3">
+                  <Pagination currentPage={currentPage} totalPages={totalPages} setCurrentPage={selectedPage}  />
+                  {children}
+                </div>
+                </>
+              :
+                <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-secondary bg-opacity-40 z-50">
+                  <Loader2 className="text-center animate-spin text-primary h-[60px] w-[60px]"/>
+                </div>
+              }
             </div>
           </section>
         </main>

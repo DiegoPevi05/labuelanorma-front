@@ -5,7 +5,7 @@ const LoadingComponent = ({ isLoading }:any) => {
   return (
     <>
       {isLoading && (
-        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-primary bg-opacity-70 z-[100]">
+        <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-secondary bg-opacity-70 z-[100]">
           <motion.div
             className="sm:relative  sm:my-0 w-[18rem] sm:w-[12rem] lg:w-[14rem] h-full flex justify-center items-center sm:p-2"
             animate={{

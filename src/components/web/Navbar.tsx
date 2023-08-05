@@ -1,10 +1,11 @@
-import {Fragment,useEffect,useState} from 'react';
+import {Fragment,useState} from 'react';
 import {Logo} from '../../assets/images';
 import Button from '../ui/Button';
 import { Dialog, Transition } from '@headlessui/react';
-import {AlignJustify,X,Store,ShoppingCart,User,UserX,ScrollText } from 'lucide-react';
+import {AlignJustify,X,Store,ShoppingCart,User,UserX,Gift } from 'lucide-react';
 import ShoppingCartComp from '../../components/shared/ShoppingCart';
 import { UserIt } from '../../interfaces/global';
+
 
 interface NavIt {
   name:string;
@@ -26,39 +27,30 @@ interface userNavIt {
   href : string;
 }
 const navigationUser:userNavIt[] = [
-  { icon: <User/>,label:'Panel de Usuario', href: '/#/userpanel' },
-  { icon: <Store/>,label:'Ir a la Cachina', href: '/#/store' },
-  { icon: <ScrollText/>,label:'Historial de Compras', href: '/#/userpanel/order' }
+  { icon: <Gift/>,label:'Ver Sorteos', href: '/giveaways' },
+  { icon: <Store/>,label:'Ir a la Cachina', href: '/store' },
 ]
 
-/*const user:UserIt = {
-  name:"Diego",
-  email:"diego10azul@hotmail.com",
-  role:"USER",
-  id:"123412312312"
-}*/
+interface NavProps {
+  user: UserIt|undefined;
+  setUser:(user:UserIt|undefined) => void;
+  closeSession: () => void;
+}
+const Navbar = (navProps:NavProps) => {
 
+  const { user, closeSession} = navProps;
 
-const Navbar = () => {
-
-  const [user,setUser] = useState<UserIt|undefined>(undefined);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [toggleProfile,setToggleProfile] = useState(false);
   const [openShoppingCart,setOpenShoppingCart] = useState(false);
 
-  useEffect(()=>{
-    const storedUser = localStorage.getItem('user');
-    if (storedUser !== null) {
-      setUser(JSON.parse(storedUser));
-    }
-  },[])
 
   const closeShoppingCart = () => {
     setOpenShoppingCart(false);
   }
 
   return (
-    <div className="fixed top-0  h-[80px] w-full z-[20] lg:bg-slate-200 lg:bg-opacity-80">
+    <div className="fixed top-0  h-[80px] w-full z-[20] red-orange-gradient">
           <nav className="flex items-center justify-between px-6 lg:px-8" aria-label="Global">
             <div className="flex lg:flex-1">
               <a href="/">
@@ -73,11 +65,15 @@ const Navbar = () => {
             <div className="flex lg:hidden flex-row gap-2 items-center justify-end">
               <button onClick={() => setOpenShoppingCart(!openShoppingCart)}>
                 <span className="sr-only">Carrito</span>
-                <ShoppingCart className="h-8 w-8 text-secondary hover:text-white"/>
+                <ShoppingCart className="h-8 w-8 text-secondary hover:text-primary"/>
               </button>
-              <a href="/#/store">
+              <a href="/store">
                 <span className="sr-only">Store</span>
-                <Store className="h-8 w-8 text-secondary hover:text-white"/>
+                <Store className="h-8 w-8 text-secondary hover:text-primary"/>
+              </a>
+              <a href="/giveaways">
+                <span className="sr-only">Giveaway</span>
+                <Gift className="h-8 w-8 text-secondary hover:text-primary"/>
               </a>
               <button
                 type="button"
@@ -89,7 +85,7 @@ const Navbar = () => {
             </div>
             <div className="hidden lg:flex lg:gap-x-8 py-6">
               {navigation.map((item) => (
-                <a key={item.name} href={item.href} className="text-md font-bold leading-6 red-text-gradient">
+                <a key={item.name} href={item.href} className="text-xl font-bold leading-6 text-secondary hover:text-primary">
                   {item.label}
                 </a>
               ))}
@@ -101,14 +97,18 @@ const Navbar = () => {
               }
               <button onClick={() => setOpenShoppingCart(!openShoppingCart)}>
                 <span className="sr-only">ShoppingCart</span>
-                <ShoppingCart className="h-8 w-8 text-secondary hover:text-white"/>
+                <ShoppingCart className="h-8 w-8 text-secondary hover:text-primary"/>
               </button>
-              <a href="/#/store">
+              <a href="/store">
                 <span className="sr-only">Store</span>
-                <Store className="h-8 w-8 text-secondary hover:text-white"/>
+                <Store className="h-8 w-8 text-secondary hover:text-primary"/>
+              </a>
+              <a href="/giveaways">
+                <span className="sr-only">Giveaway</span>
+                <Gift className="h-8 w-8 text-secondary hover:text-primary"/>
               </a>
               {!user ?
-                <a href="/#/sign-in" className="text-md font-semibold leading-6 red-text-gradient">
+                <a href="/sign-in" className="text-md font-semibold leading-6 text-secondary hover:text-primary">
                   Inicio de Sesion <span aria-hidden="true">&rarr;</span>
                 </a>
                 :
@@ -130,10 +130,10 @@ const Navbar = () => {
                                 {navitem.label}
                               </a>
                             ))}
-                            <a className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-secondary hover:bg-gray-100 focus:ring-2 focus:ring-secondary" href="#">
+                            <button className="flex items-center gap-x-3.5 py-2 px-3 rounded-md text-sm text-secondary hover:bg-gray-100 focus:ring-2 focus:ring-secondary" onClick={closeSession}>
                               <X className="text-secondary"/>
                               Cerrar Sesion 
-                            </a>
+                            </button>
                           </div>
                         </div>
                       }
@@ -194,7 +194,7 @@ const Navbar = () => {
                             <a
                               key={item.name}
                               href={item.href}
-                              className="block rounded-lg px-3 py-2 text-lg font-semibold leading-7 text-primary hover:bg-secondary"
+                              className="block rounded-lg px-3 py-2 text-lg font-semibold leading-7 text-secondary hover:text-primary"
                             >
                               {item.label}
                             </a>
@@ -202,12 +202,12 @@ const Navbar = () => {
                         </div>
                         {!user ?
                           <div className="py-6">
-                            <a href="/#/sign-in" className="block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 green-text-gradient hover:bg-gray-50">
+                            <a href="/#/sign-in" className="block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-secondary hover:text-primary">
                               Iniciar Sesión
                             </a>
                           </div>
                         :
-                        <Button size="lg" className="w-full"> 
+                        <Button size="lg" className="w-full" onClick={closeSession}> 
                           <UserX className="text-primary mr-2"/>
                           Cerrar Sesión
                         </Button>

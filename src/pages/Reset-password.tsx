@@ -41,11 +41,9 @@ const RecoverPassword = () => {
     setIsLoading(true);
     const email = localStorage.getItem("email");
     const recoverCode  = localStorage.getItem("recoverCode")
-    const queryParams = { email, recoverCode, password };
+    const body = { email,recover_token: recoverCode, new_password:password };
     try {
-      await axios.post(import.meta.env.VITE_BACKEND_URL+"/public/auth/reset-password/reset",null,{
-        params: queryParams,
-      });
+      await axios.post(import.meta.env.VITE_BACKEND_URL+"/api/reset-password",body);
       localStorage.removeItem("email");
       localStorage.removeItem("recoverCode");
       toast.success("Contraseña Actualizada exitosamente");
@@ -80,14 +78,14 @@ const RecoverPassword = () => {
                     alt="laAbuelaNormaLogo"
                   />
                 </a>
-                <h2 className="mt-6 text-center text-3xl font-bold tracking-tight blue-text-gradient">
+                <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-secondary">
                   Ingresa tu nueva contraseña 
                 </h2>
               </div>
               <div className="mt-8 space-y-6">
                 <input type="hidden" name="remember" defaultValue="true" />
                 <div className="space-y-2 rounded-md shadow-sm">
-                  <p className="green-text-gradient">
+                  <p className="text-secondary">
                     Actualiza tu contraseña 
                   </p>
                   <div>
@@ -123,7 +121,7 @@ const RecoverPassword = () => {
                 </div>
                 <div>
                   <Button
-                    variant="colorbg"
+                    variant="dark"
                     size="lg"
                     className="w-full"
                     isLoading={isLoading}
@@ -134,7 +132,7 @@ const RecoverPassword = () => {
                   </Button>
                 </div>
                 <div className="flex items-center justify-center">
-                  <a href="/#/sign-in" className="font-medium blue-text-gradient hover:red-text-gradient">
+                  <a href="/sign-in" className="font-medium text-secondary hover:text-primary">
                     ¿Iniciar Sesión con una cuenta?
                   </a>
                 </div>

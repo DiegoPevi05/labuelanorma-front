@@ -2,35 +2,77 @@ import { useState,useEffect } from 'react'
 import { StoreNavbar,ProductList} from '../components/storeandgiveaway'
 import LayoutProducts from '../components/ui/LayoutProducts';
 import LoadingComponent from '../components/shared/LoadingComponent';
-import {products} from '../constants';
-import {FilterProductProps,ProductIt} from '../interfaces/global';
-import {ApplyFilterToProducts} from '../lib/utils';
+import {FilterProductProps,ProductIt,Category,UserIt} from '../interfaces/global';
+import {mapInputDataProducts} from '../lib/utils';
 import { useLocation } from 'react-router-dom';
+import axios from 'axios';
+import {toast} from "react-hot-toast";
 
-const MainStore = () => {
+interface MainStoreProps {
+  user : UserIt|undefined;
+  closeSession : () => void;
+  categories: Category;
+  isLoading: boolean;
+  filters: FilterProductProps;
+  changeFilters: (filters: FilterProductProps) => void;
+}
+
+const MainStore = (mainStoreProps:MainStoreProps) => {
+
+  const {user,closeSession,categories,isLoading, filters,changeFilters} = mainStoreProps;
 
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const section = searchParams.get('section');
   const category = searchParams.get('category');
-  const [isLoading,] = useState<boolean>(false);
-  const [productsShow,setProductsShow] = useState<ProductIt[]>([]);
-  const [filters,setFilters] = useState<FilterProductProps>({
-    section:section ? section : "All",
-    category:category ? category : "All",
-    size:"All",
-    orderOption:"Most Popular"
-  });
+  const featured = searchParams.get('featured');
+  const order = searchParams.get('order');
 
 
-  const changeFilters = (filters:FilterProductProps) => {
-    setFilters(filters);
-  }
+  useEffect(()=>{
+    if(section != null){
+      changeFilters({...filters, section:section});
+    }
+
+    if(category != null){
+      changeFilters({...filters, category:category});
+    }
+
+    if(featured != null){
+      changeFilters({...filters, featured:featured});
+    }
+    if(order != null){
+      changeFilters({...filters, order:order});
+    }
+  },[section,category,featured,order])
+
+  const [products,setProducts] = useState<ProductIt[]>([]);
+  const [TotalPages,setTotalPages] = useState<number>(0);
+  const [loadingContent,setLoadingContent] = useState<boolean>(false);
 
   useEffect(() => {
-    const filteredProducts = ApplyFilterToProducts(products, filters);
-    setProductsShow(filteredProducts);
-  },[products,filters])
+    const getDataProductsFromServer = async () => {
+      setLoadingContent(true);
+      try {
+        const response = await axios.get(import.meta.env.VITE_BACKEND_URL+'/api/products-public',{
+          params: filters
+        });
+        await setProducts(mapInputDataProducts(response.data.products.data));
+        await setTotalPages(response.data.products.last_page);
+      }catch (err) {
+        toast.error("Ha habido un error trayendo los productos");
+      }finally{
+        setLoadingContent(false);
+      }
+    }
+    getDataProductsFromServer();
+  },[filters])
+
+  const updatePageFilter = (page:number) => {
+    changeFilters({...filters, page:page});
+  }
+
+
 
   if(isLoading){
     return(
@@ -39,9 +81,9 @@ const MainStore = () => {
   }else{
     return (
       <>
-        <StoreNavbar />
-        <LayoutProducts changeFilters={changeFilters} filtersParent={filters}>
-          <ProductList products={productsShow}/>
+        <StoreNavbar user={user} closeSession={closeSession} categories={categories} changeFilters={changeFilters} filtersParent={filters}/>
+        <LayoutProducts changeFilters={changeFilters} filtersParent={filters} categories={categories} currentPage={filters.page} totalPages={TotalPages} selectedPage={updatePageFilter} loadingContent={loadingContent}>
+          <ProductList products={products}/>
         </LayoutProducts>
       </>
     )

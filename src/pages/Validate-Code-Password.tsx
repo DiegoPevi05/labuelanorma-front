@@ -27,14 +27,13 @@ const ValidatePassword = () => {
 
     setIsLoading(true);
     try {
-      const queryParams = { email, recoverCode };
-      await axios.post(import.meta.env.VITE_BACKEND_URL+"/public/auth/validate-code",null,{
-        params: queryParams,
-      });
+      const body = { email, recover_token: recoverCode };
+      await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/validate-token", body);
       toast.success("Codigo Valido");
       localStorage.setItem("recoverCode",recoverCode);
       setTimeout(() => navigate("/reset-password"),2000);
     }catch (error) {
+      console.log(error)
       if (typeof error !== 'undefined' && error instanceof Error) {
         const errorResponse = error as { response?: { status: number } };
         if(errorResponse.response){
@@ -64,14 +63,14 @@ const ValidatePassword = () => {
                     alt="laAbuelaNormaLogo"
                   />
                 </a>
-                <h2 className="mt-6 text-center text-3xl font-bold tracking-tight blue-text-gradient">
+                <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-secondary">
                   Ingresa el codigo 
                 </h2>
               </div>
               <div className="mt-8 space-y-6">
                 <input type="hidden" name="remember" defaultValue="true" />
                 <div className="space-y-2 rounded-md shadow-sm">
-                  <p className="green-text-gradient">
+                  <p className="text-secondary">
                     Ingresa el codigo que te ha llegado a tu correo electronico 
                   </p>
                   <div>
@@ -91,7 +90,7 @@ const ValidatePassword = () => {
                 </div>
                 <div>
                   <Button
-                    variant="colorbg"
+                    variant="dark"
                     size="lg"
                     className="w-full"
                     isLoading={isLoading}

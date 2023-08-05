@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { styles } from "../../styles";
 import { SectionWrapper } from "../ui/hoc";
 import { fadeIn, textVariant,slideIn } from "../../lib/motion";
-import { ZullyNorma,AboutHeader,ArrowDown,TikTok } from "../../assets/images";
+import { AboutHeader,ArrowDown,TikTok } from "../../assets/images";
 import {Facebook,Instagram,Youtube} from "lucide-react";
 import { AboutWebData,SocialWebData } from '../../interfaces/web';
 
@@ -22,9 +22,9 @@ const About = (aboutProps:AboutProps) => {
 
           <motion.p
             variants={fadeIn("", "", 1, 0.75)}
-            className='mt-4 text-white text-sm text-justify md:text-[15px] lg:text-[17px] max-w-3xl leading-[20px] sm:leading-[30px]'
+            className='mt-4 text-secondary text-sm text-justify md:text-[15px] lg:text-[17px] max-w-3xl leading-[20px] sm:leading-[30px]'
           >
-            {aboutData?.description ?? " "}
+            {aboutData?.body ?? " "}
           </motion.p>
           <motion.div className="flex flex-row w-full h-auto mt-2 md:mt-8">
             <a id={"tiktok"} href={socialData?.tiktok ?? ""} target="_blank"className="flex w-auto h-auto justify-center cursor-pointer mx-auto">
@@ -46,7 +46,7 @@ const About = (aboutProps:AboutProps) => {
             variants={fadeIn("left", "spring", 1.5, 0.75)}
             className='w-full flex items-center justify-center py-4 sm:py-0'
           >
-            <img src={ZullyNorma} alt='ZullyNorma' className='relative w-full sm:w-[640px] h-[300px] sm:h-[640px] object-contain' />
+            <img src={aboutData?.image} alt='ZullyNorma' className='relative w-full sm:w-[640px] h-[300px] sm:h-[640px] object-contain' />
           </motion.div>
         </div>
         <a href='#giveaway' className="absolute right-10 sm:right-0 w-auto flex justify-center">

@@ -12,8 +12,8 @@ const ProductCard = (productCardProps:ProductCardProps) => {
       <div className="aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 h-70 sm:h-80">
         <img
           key={product.id}
-          src={product.defaultImage.src}
-          alt={product.defaultImage.alt}
+          src={product.defaultImage}
+          alt={"defaultImage_"+product.id}
           className="h-full w-full object-cover object-center lg:h-full lg:w-full"
         />
       </div>

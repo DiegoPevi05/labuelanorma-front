@@ -40,10 +40,9 @@ const Register = () => {
 
     setIsLoading(true);
     try {
-      const response = await axios.post(import.meta.env.VITE_BACKEND_URL+"/public/auth/register",registerData);
+      await axios.post(import.meta.env.VITE_BACKEND_URL+"/api/register",registerData);
       toast.success("Cuenta creada Exitosamente");
-      localStorage.setItem('token',response.data.token);
-      setTimeout(() => navigate("/"),2000);
+      setTimeout(() => navigate("/sign-in"),2000);
     }catch (error) {
       if (typeof error !== 'undefined' && error instanceof Error) {
         const errorResponse = error as { response?: { status: number } };
@@ -74,7 +73,7 @@ const Register = () => {
                     alt="laAbuelaNormaLogo"
                   />
                 </a>
-                <h2 className="mt-6 text-center text-3xl font-bold tracking-tight blue-text-gradient">
+                <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-secondary">
                   Registrate Ingresa tus Datos 
                 </h2>
               </div>
@@ -97,32 +96,17 @@ const Register = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="firstname" className="sr-only">
+                    <label htmlFor="name" className="sr-only">
                       Primer Nombre 
                     </label>
                     <input
-                      id="firstname"
-                      name="firstname"
+                      id="name"
+                      name="name"
                       type="text"
-                      autoComplete="firstname"
+                      autoComplete="name"
                       required
                       className="relative block w-full rounded-md border-0 py-1.5 bg-primary text-secondary placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 sm:text-sm sm:leading-6 px-2"
                       placeholder="Nombre"
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="firstname" className="sr-only">
-                      Apellido 
-                    </label>
-                    <input
-                      id="lastname"
-                      name="lastname"
-                      type="text"
-                      autoComplete="lastname"
-                      required
-                      className="relative block w-full rounded-md border-0 py-1.5 bg-primary text-secondary placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 sm:text-sm sm:leading-6 px-2"
-                      placeholder="Apellido"
                       onChange={handleInputChange}
                     />
                   </div>
@@ -159,18 +143,18 @@ const Register = () => {
                 </div>
                 <div>
                   <Button
-                    variant="colorbg"
+                    variant="dark"
                     size="lg"
                     className="w-full"
                     isLoading={isLoading}
                     onClick={()=>handleSubmit()}
                      >
-                    {isLoading ? "": <CheckCircle className="h-5 w-5 text-secondary group-hover:text-tertiary mr-2" aria-hidden="true"/> }
+                    {isLoading ? "": <CheckCircle className="h-5 w-5 text-tertiary group-hover:text-tertiary mr-2" aria-hidden="true"/> }
                    Registrate 
                   </Button>
                 </div>
                 <div className="flex items-center justify-center">
-                  <a href="/#/sign-in" className="font-medium blue-text-gradient hover:red-text-gradient">
+                  <a href="/sign-in" className="font-medium text-secondary hover:red-text-gradient">
                     ¿Iniciar Sesión con una cuenta?
                   </a>
                 </div>

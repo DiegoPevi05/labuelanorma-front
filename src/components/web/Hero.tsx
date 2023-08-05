@@ -5,13 +5,13 @@ import {HeroLogo,Blanca} from "../../assets/images";
 import {HeroWebData} from '../../interfaces/web';
 
 interface HeroProps {
-  heroData:HeroWebData;
+  heroData:HeroWebData | undefined;
 }
 
 const Hero = (heroProps:HeroProps) => {
   const {heroData} = heroProps;
   return (
-    <section className="w-full h-screen mx-auto z-[10] overflow-hidden bg-blurred">
+    <section className="w-full h-screen mx-auto z-[10] overflow-hidden bg-secondary">
       <motion.section
         variants={staggerContainer()}
         initial='hidden'
@@ -50,8 +50,7 @@ const Hero = (heroProps:HeroProps) => {
         <div className="relative h-full lg:h-1/4 sm:w-full flex flex-row items-center justify-between">
 
           <motion.div variants={slideIn("left", "", 3, 0.2)} className="hidden sm:block w-3/4 h-full flex flex-col">
-            <p className={`sm:text-lg lg:text-md text-white font-black blue-green-gradient text-right pr-4 rounded-tr-lg`}>{heroData?.subHeader ?? " "}</p>
-            <h2 className={`sm:text-2xl lg:text-4xl text-white font-black red-orange-gradient text-right pr-4 border-b-[12px] rounded-br-lg`}>{heroData?.header ?? " "}</h2>
+            <h2 className={`sm:text-2xl lg:text-4xl h-1/4 text-primary hover:text-secondary font-black red-orange-gradient text-right pt-2 pr-4 rounded-r-lg`}>{heroData?.header ?? " "}</h2>
           </motion.div>
 
           <a href='#about' className="relative w-full sm:w-1/4 flex justify-center">

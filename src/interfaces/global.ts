@@ -5,6 +5,30 @@ export interface UserIt {
   id:string;
 }
 
+export interface Category {
+  name:string;
+  featured:Featured[];
+  sections : SectionsCat[]
+}
+
+interface Featured {
+  name:string;
+  herf:string;
+  imageSrc:string;
+  imageAlt:string;
+}
+
+interface SectionsCat {
+  name: string;
+  categories: CategorySubCat[];
+}
+
+interface CategorySubCat {
+  id: string;
+  name: string;
+  href: string;
+}
+
 export interface ItemCart {
   product: productCart;
   quantity:number;
@@ -23,7 +47,6 @@ export interface productCart{
 
 
 export interface StoreNavIt {
-  categories:StoreNavCatIt[];
   pages:StoreNavPagIt[];
 }
 
@@ -32,30 +55,6 @@ interface StoreNavPagIt {
   href:string;
 }
 
-interface StoreNavCatIt {
-  id:string;
-  name:string;
-  featured:StoreNavCatFetIt[];
-  sections:StoreNavCatSecIt[];
-}
-
-interface StoreNavCatFetIt{
-  name:string;
-  href:string;
-  imageSrc:string;
-  imageAlt:string;
-}
-
-interface StoreNavCatSecIt {
-  id:string;
-  name:string;
-  categories:StoreNavCatSecItemsIt[];
-}
-
-interface StoreNavCatSecItemsIt {
-  name:string;
-  href:string
-}
 
 export interface ProductIt {
   id:number;
@@ -64,7 +63,7 @@ export interface ProductIt {
   category:string;
   price:number;
   breadcrumbs : ProductBreadcrumbsIt[];
-  defaultImage:ProductImagesIt;
+  defaultImage:string;
   images: ProductImagesIt[];
   sizes: ProductSizesIt[];
   description:string;
@@ -92,8 +91,9 @@ interface ProductSizesIt {
 export interface FilterProductProps {
   section: string;
   category: string;
-  size: string;
-  orderOption: string;
+  featured: string;
+  order: string;
+  page: number;
 }
 
 export interface ItemShopCart {
@@ -105,7 +105,7 @@ export interface ItemShopCart {
       src:string;
       alt:string;
     }
-    size:string;
+    size:ProductSizesIt;
   }
   quantity:number;
 }

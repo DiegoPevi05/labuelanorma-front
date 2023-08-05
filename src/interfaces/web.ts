@@ -1,10 +1,16 @@
 export interface webContentRaw {
     id:number;
     section:string;
-    subSection:string;
+    sub_section:string;
     content_type:string,
-    content_text:string;
-    content_url:string;
+    content:string;
+}
+
+export interface WebContentFullData {
+  web:webContent;
+  giveaway:GiveawayData;
+  partners:PartnerData[];
+  products:ProductData[];
 }
 
 export interface webContent {
@@ -17,13 +23,13 @@ export interface webContent {
 }
 
 export interface HeroWebData {
-  subHeader:string;
   header:string;
   video:string;
 }
 
 export interface AboutWebData {
-  description:string;
+  body:string;
+  image:string;
 }
 
 export interface  SocialWebData {
@@ -42,32 +48,35 @@ export interface VideoWebData {
 }
 
 export interface PartnerWebData {
-    subheader:string;
+    header:string;
 }
 export interface GiveawayWebData {
-    subheader:string;
+    header:string;
 }
 
 export interface GiveawayData {
   id:number;
-  imgUrl:string;
-  title:string;
+  name:string;
   description:string;
-  expiredDate:string;
+  start_date:string;
+  end_date:string;
+  image_url:string;
+  alreadyIn:boolean;
 }
 
 export interface PartnerData {
   id:number;
   name:string;
-  imageHeader:string;
-  descriptionBrand:string;
-  videoPublicity:string;
-  brandPage:string;
+  description:string;
+  image:string;
+  link_content:string;
+  brand_link:string;
   tags: string[]
 }
 
-export interface StoreData {
+export interface ProductData {
   id:number;
+  category_id:number;
   name:string;
   description:string;
   tags: string[]
@@ -75,4 +84,10 @@ export interface StoreData {
   href:string;
   price:number;
   isnew:boolean;
+}
+
+export interface CategoryData {
+  id:number;
+  section:string;
+  name:string;
 }

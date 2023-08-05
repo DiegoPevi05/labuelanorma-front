@@ -22,7 +22,7 @@ const RecoverPassword = () => {
     setIsLoading(true);
     const queryParams = { email };
     try {
-      await axios.post(import.meta.env.VITE_BACKEND_URL+"/public/auth/reset-password/code",null,{
+      await axios.post(import.meta.env.VITE_BACKEND_URL+"/api/recover-password",null,{
         params: queryParams,
       });
       toast.success("Codigo Enviado Exitosamente");
@@ -58,14 +58,14 @@ const RecoverPassword = () => {
                     alt="laAbuelaNormaLogo"
                   />
                 </a>
-                <h2 className="mt-6 text-center text-3xl font-bold tracking-tight blue-text-gradient">
+                <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-secondary">
                   Ingresa tu correo 
                 </h2>
               </div>
               <div className="mt-8 space-y-6">
                 <input type="hidden" name="remember" defaultValue="true" />
                 <div className="space-y-2 rounded-md shadow-sm">
-                  <p className="green-text-gradient">
+                  <p className="text-secondary">
                     Te llegara un codigo para re-establecer tu contraseña
                   </p>
                   <div>
@@ -86,7 +86,7 @@ const RecoverPassword = () => {
                 </div>
                 <div>
                   <Button
-                    variant="colorbg"
+                    variant="dark"
                     size="lg"
                     className="w-full"
                     isLoading={isLoading}
@@ -97,7 +97,7 @@ const RecoverPassword = () => {
                   </Button>
                 </div>
                 <div className="flex items-center justify-center">
-                  <a href="/#/validate-code-password" className="font-medium blue-text-gradient hover:red-text-gradient">
+                  <a href="/validate-code-password" className="font-medium text-secondary hover:red-text-gradient">
                     Si ya tienes tu codigo ingresalo Aqui
                   </a>
                 </div>

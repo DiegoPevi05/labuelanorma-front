@@ -46,10 +46,11 @@ const Contact = () => {
           Authorization: import.meta.env.VITE_FORM_UATH_TOKEN
         }
       }
-      await axios.post(import.meta.env.VITE_BACKEND_URL+"/api/send-email-contact",form,config);
+      await axios.post(import.meta.env.VITE_BACKEND_URL+"/api/send-email",form,config);
       setForm(emptyData);
       toast.success("Mensaje enviado con éxito");
     } catch(error){
+      console.log(error)
       toast.error("No se ha podido enviar el mensaje");
     } finally{
       setLoading(false);
@@ -70,45 +71,46 @@ const Contact = () => {
 
           <img src={ContactHeader} alt='contact_header' className='relative w-full sm:w-auto h-[100px] lg:h-[100px] xl:h-[150px] mb-0 xl:mb-[-60px]  object-contain' />
           <div className='flex flex-col'>
-            <span className='red-text-gradient font-bold text-sm sm:text-lg mb-2 sm:mb-4'>Nombre</span>
+            <span className='text-fourth font-bold text-sm sm:text-lg mb-2 sm:mb-4'>Nombre</span>
             <input
               type='text'
               name='name'
               value={form.name}
               onChange={handleChange}
               placeholder="Cual es tu nombre?"
-              className='bg-primary py-2 sm:py-4 px-6 text-secondary placeholder:text-secondary rounded-lg font-small sm:font-medium
+              className='bg-fourth py-2 sm:py-4 px-6 text-primary placeholder:text-primary rounded-lg font-small sm:font-medium
                 transition-color focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
               '
             />
           </div>
           <div className='flex flex-col'>
-            <span className='red-text-gradient font-bold text-sm sm:text-lg mb-2 sm:mb-4'>Email</span>
+            <span className='text-fourth font-bold text-sm sm:text-lg mb-2 sm:mb-4'>Email</span>
             <input
               type='email'
               name='email'
               value={form.email}
               onChange={handleChange}
               placeholder="Cual es tu correo?"
-              className='bg-primary py-2 sm:py-4 px-6 text-secondary placeholder:text-secondary rounded-lg font-small sm:font-medium
+              className='bg-fourth py-2 sm:py-4 px-6 text-primary placeholder:text-primary rounded-lg font-small sm:font-medium
                 transition-color focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
               '
             />
           </div>
           <div className='flex flex-col'>
-            <span className='red-text-gradient font-bold text-sm sm:text-lg mb-2 sm:mb-4'>Mensaje</span>
+            <span className='text-fourth font-bold text-sm sm:text-lg mb-2 sm:mb-4'>Mensaje</span>
             <textarea
               rows={7}
               name='message'
               value={form.message}
               onChange={handleChange}
               placeholder="Que quieres rajar?"
-              className='bg-primary py-2 sm:py-4 px-6 text-secondary placeholder:text-secondary rounded-lg font-small sm:text-lg 
+              className='bg-fourth py-2 sm:py-4 px-6 text-primary placeholder:text-primary rounded-lg font-small sm:text-lg 
                 transition-color focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
               '
             />
           </div>
           <Button 
+            variant={"dark"}
             type="submit" 
             isLoading={Loading} 
             className="text-lg"

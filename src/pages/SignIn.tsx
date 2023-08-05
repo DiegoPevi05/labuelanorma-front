@@ -5,9 +5,14 @@ import {toast} from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/ui/Button";
 import axios from "axios";
+import { UserIt } from '../interfaces/global';
 
+interface SignInProps {
+  setUser: (user: UserIt|undefined) => void;
+}
 
-const SignIn = () => {
+const SignIn = (signInProps:SignInProps) => {
+  const { setUser } = signInProps;
 
   const navigate = useNavigate();
   const [formData, setFormData] = React.useState({ email: "", password: ""});
@@ -21,16 +26,22 @@ const SignIn = () => {
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.post(import.meta.env.VITE_BACKEND_URL+"/public/auth/authenticate", formData);
+      const response = await axios.post(import.meta.env.VITE_BACKEND_URL+"/api/login", formData);
       localStorage.setItem('token',response.data.token);
+      const headers ={
+        'Authorization': 'Bearer ' + response.data.token
+      }
+      const response_user = await axios.get(import.meta.env.VITE_BACKEND_URL+"/api/user",{headers})
+      setUser(response_user.data);
+      localStorage.setItem('user',JSON.stringify(response_user.data));
       toast.success("Ingreso Exitoso");
       setTimeout(() => navigate("/"),2000);
     }catch (error) {
       if (typeof error !== 'undefined' && error instanceof Error) {
-        const errorResponse = error as { response?: { status: number } };
+        const errorResponse = error as { response?: { status: number, data:any } };
         if(errorResponse.response){
           if(errorResponse.response.status == 403){
-            toast.error("Tu contraseña o tu correo son invalidos.");
+            toast.error(errorResponse.response.data.error);
           }else{
             toast.error("Error interno en el servidor.");
           }
@@ -54,7 +65,7 @@ const SignIn = () => {
                   alt="laAbuelaNormaLogo"
                 />
                 </a>
-                <h2 className="mt-6 text-center text-3xl font-bold tracking-tight blue-text-gradient">
+                <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-secondary">
                   Ingresa a tu cuenta 
                 </h2>
               </div>
@@ -95,14 +106,14 @@ const SignIn = () => {
 
                 <div className="flex items-center justify-end">
                   <div className="text-sm">
-                    <a href="/#/recover-password" className="font-medium blue-text-gradient hover:blue-green-gradient">
+                    <a href="/recover-password" className="font-medium text-secondary hover:text-primary">
                       Olvidaste tu contraseña?
                     </a>
                   </div>
                 </div>
                 <div className="w-full">
                   <Button
-                    variant="colorbg"
+                    variant="dark"
                     size="lg"
                     className="w-full"
                     isLoading={isLoading}
@@ -113,7 +124,7 @@ const SignIn = () => {
                   </Button>
                 </div>
                 <div className="flex items-center justify-center">
-                  <a href="/#/register" className="font-medium blue-text-gradient hover:red-text-gradient">
+                  <a href="/register" className="font-medium text-secondary hover:text-primary">
                     ¿No tienes una cuenta?
                   </a>
                 </div>

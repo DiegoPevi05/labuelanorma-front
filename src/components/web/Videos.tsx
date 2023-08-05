@@ -5,12 +5,11 @@ import {TrendingHeader,ArrowDown} from "../../assets/images";
 import { VideoWebData } from '../../interfaces/web';
 
 interface VideosProps{
-  videoData:VideoWebData
+  videoData:VideoWebData | undefined
 }
 
 const VideoSection = (videosProps:VideosProps) => {
   const {videoData } = videosProps;
-  console.log(videoData)
   const [videoDataSection,setVideoDataSection] = useState<string[]|undefined>(undefined);
   const [videos, setVideos] = useState<string[]>([]);
 

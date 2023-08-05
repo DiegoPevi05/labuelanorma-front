@@ -5,9 +5,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#fed0d2",//#ecc22e
-        secondary: "#cb285d",//#cb285d
-        tertiary: "#11002c",//#11002c
+        primary: "#e9b433",
+        secondary: "#15002e",
+        tertiary: "#04ade2",
+        fourth: "#fb1664",
+        fifth:"#05c805",
         "black-100": "#100d25",
         "black-200": "#090325",
         "white-100": "#f3f3f3",
@@ -20,8 +22,8 @@ module.exports = {
         xs: "450px",
       },
       fontFamily: {
-        heading: ['Dancing Script','sans-serif'],
-        body: ['Poppins','sans-serif'],
+        heading: ['Coolvetica-regular','sans-serif'],
+        body: ['Coolvetica-regular','sans-serif'],
       },
     },
   },

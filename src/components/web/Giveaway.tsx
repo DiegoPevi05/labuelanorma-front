@@ -12,13 +12,6 @@ import Link from '../ui/Link';
 import axios from "axios";
 
 
-const user:UserIt = {
-  name:"Diego",
-  email:"diego10azul@hotmail.com",
-  role:"USER",
-  id:"123412312312"
-}
-
 
 interface Time {
   days: number;
@@ -28,32 +21,34 @@ interface Time {
 }
 
 interface GiveawayProps {
+  user: UserIt|undefined;
   giveawayDataWeb: GiveawayWebData;
   giveawayData: GiveawayData;
 }
 
 const Giveaways = (giveawayProps:GiveawayProps) => {
-  const {giveawayDataWeb,giveawayData} = giveawayProps; 
+  const {user,giveawayDataWeb,giveawayData} = giveawayProps; 
   //Generate a function that create a countDown in hours of giveawaData.expiredDate that format is string in dd-mm-yyyy hh:mm:ss
   const formatDate = (date:string):any => {
     const dateArray = date.split("-");
-    const year = dateArray[2];
+    const year = dateArray[0];
     const month = dateArray[1];
-    const day = dateArray[0];
+    const day = dateArray[2];
     return new Date(`${year}-${month}-${day}`);
   }
+
 
   const [time, setTime] = useState<Time>({ days: 0, hours:0,minutes:0,seconds:0 });
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    if(giveawayData?.expiredDate && formatDate(giveawayData.expiredDate) > new Date()){
+    if(giveawayData?.end_date && formatDate(giveawayData.end_date) > new Date()){
       let interval:any = null;
       if (seconds < 0) {
         clearInterval(interval);
       }
       interval = setInterval(() => {
-        const second = Math.floor((formatDate(giveawayData.expiredDate) - new Date().getTime()) / 1000);
+        const second = Math.floor((formatDate(giveawayData.end_date) - new Date().getTime()) / 1000);
         if (second > 0) {
           const days = Math.floor(second / 86400);
           const hours = Math.floor((second % 86400) / 3600);
@@ -86,7 +81,7 @@ const Giveaways = (giveawayProps:GiveawayProps) => {
           Authorization: "userToken"
         },
         params:{
-          userid:user.id
+          userid:user?.id
         }
       }
       const response = await axios.get(import.meta.env.VITE_BACKEND_URL+"/public/giveaway/participant",config);
@@ -113,32 +108,32 @@ const Giveaways = (giveawayProps:GiveawayProps) => {
                   variants={fadeIn("", "", 0.1, 1)}
                   className='block rounded-[20px] text-primary font-bold text-[18px] md:text-[20px] max-w-3xl leading-[30px] text-center'
                 >
-                  {giveawayDataWeb?.subheader ?? ""}
+                  {giveawayDataWeb?.header ?? ""}
                 </motion.p>
                 <motion.p
                   variants={fadeIn("", "", 0.1, 1)}
-                  className='block rounded-[20px] text-tertiary font-bold text-[16px] md:text-[24px] max-w-3xl leading-[30px] text-center'
+                  className='block rounded-[20px] text-primary font-bold text-[16px] md:text-[24px] max-w-3xl leading-[30px] text-center'
                 >
-                  Ultimo Concurso: {giveawayData?.title ?? ""}
+                  Ultimo Concurso: {giveawayData?.name ?? ""}
                 </motion.p>
                 <motion.p
                   variants={fadeIn("", "", 0.1, 1)}
-                  className='block rounded-[20px] text-tertiary font-bold text-[16px] md:text-[22px] max-w-3xl leading-[30px] text-center'
+                  className='block rounded-[20px] text-primary font-bold text-[16px] md:text-[22px] max-w-3xl leading-[30px] text-center'
                 >
                   Descripción: {giveawayData?.description ?? ""}
                 </motion.p>
-                {!user ?
+                {user ?
                   <>
                     { AlreadyIn === false ?
                         <Button 
-                          variant="colorbg" 
+                          variant="default" 
                           isLoading={loadingParticipate}
                           onClick={handleSubmit}
                         >
                           Participar 
                         </Button>
                       :
-                        <Button variant="colorbg">
+                        <Button variant="dark">
                           Ya estas Participando 
                         </Button>
                     }
@@ -146,8 +141,7 @@ const Giveaways = (giveawayProps:GiveawayProps) => {
                 :
 
                   <div key="Contact Information" className="flex flex-col w-full items-center py-6 gap-3">
-                    <h2 className="text-tertiary text-[12px] ">Inicia Sesión para poder participar del sorteo</h2>
-
+                    <h2 className="text-primary text-[12px] ">Inicia Sesión para poder participar del sorteo</h2>
                     <Link
                       variant="dark"
                       href="/#/sign-in">
@@ -155,7 +149,7 @@ const Giveaways = (giveawayProps:GiveawayProps) => {
                     </Link>
                   </div>
                   }
-                <Link variant="colorbg" size="sm" className="w-2/3"
+                <Link variant="dark" size="sm" className="w-2/3"
                     href="/#/giveaways">
                   Ver más Sorteos 
                   <ExternalLink className="ml-2"/> 
@@ -167,10 +161,10 @@ const Giveaways = (giveawayProps:GiveawayProps) => {
             className={`bg-transparent relative h-auto md:w-full w-full flex flex-col`}>
             <img src={ScreenTV} alt='store_tv' className='relative w-[280px] lg:w-[400px] h-auto object-contain z-40'/>
             <div className="absolute top-[0px] left-[0px] w-[280px] lg:w-[400px] flex flex-col justify-center items-center h-full bg-primary bg-opacity-50 pr-[70px] sm:pr-20 lg:pr-28">
-              <p className="w-full text-right text-[10px] lg:text-[14px] font-bold text-tertiary">Faltan poco</p>
-              <p className="w-full text-right text-[12px] lg:text-[16px] font-bold text-tertiary">para que termine el sorteo</p>
-              <p className="w-full text-right text-[35px] lg:text-[45px] font-bold text-tertiary">{time.days} dias</p>
-              <p className="w-full text-right text-[40px] lg:text-[55px] font-bold text-tertiary">{time.hours/10 > 1 ? time.hours : "0"+time.hours}:{time.minutes/10 > 1 ? time.minutes : "0"+ time.minutes}:{time.seconds/10 > 1 ? time.seconds : "0" + time.seconds}</p>
+              <p className="w-full text-right text-[10px] lg:text-[14px] font-bold text-secondary">Faltan poco</p>
+              <p className="w-full text-right text-[12px] lg:text-[16px] font-bold text-secondary">para que termine el sorteo</p>
+              <p className="w-full text-right text-[35px] lg:text-[45px] font-bold text-secondary">{time.days} dias</p>
+              <p className="w-full text-right text-[40px] lg:text-[55px] font-bold text-secondary">{time.hours/10 > 1 ? time.hours : "0"+time.hours}:{time.minutes/10 > 1 ? time.minutes : "0"+ time.minutes}:{time.seconds/10 > 1 ? time.seconds : "0" + time.seconds}</p>
             </div>
           </motion.div>
 

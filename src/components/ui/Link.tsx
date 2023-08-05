@@ -7,9 +7,8 @@ export const linkVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-tertiary text-white hover:bg-secondary',
-        colorbg:'blue-green-gradient text-white',
-        dark:'bg-tertiary text-primary hover:bg-lime-100 hover:text-tertiary',
+        default: 'red-orange-gradient text-secondary hover:text-primary',
+        dark:'bg-secondary text-fourth hover:bg-primary hover:text-secondary',
         ghost: 'bg-transparent hover:text-white hover:bg-secondary',
       },
       size: {

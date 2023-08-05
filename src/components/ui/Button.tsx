@@ -8,9 +8,8 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-tertiary text-white hover:bg-secondary',
-        colorbg:'blue-green-gradient text-white',
-        dark:'bg-tertiary text-primary hover:bg-lime-100 hover:text-tertiary',
+        default: 'bg-primary text-secondary hover:bg-secondary hover:text-primary',
+        dark:'bg-secondary text-fourth hover:bg-primary hover:text-secondary',
         ghost: 'bg-transparent hover:text-white hover:bg-secondary',
       },
       size: {
@@ -45,7 +44,7 @@ const Button: FC<ButtonProps> = ({
       className={cn(buttonVariants({ variant, size, className }))}
       disabled={isLoading}
       {...props}>
-      {isLoading ? <Loader2 className='mr-2 text-secondary h-4 w-4 animate-spin' /> : null}
+      {isLoading ? <Loader2 className='mr-2 text-primary h-4 w-4 animate-spin' /> : null}
       {children}
     </button>
   )

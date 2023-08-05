@@ -1,7 +1,7 @@
 import PeruFlag from './PeruFlag.svg';
 import HeroBg from './bgChicha.jpg';
 import Logo from './Logo.png';
-import HeroLogo from './HeroLogo.png';
+import HeroLogo from './Logo.png';
 import Blanca from './Blanca.png';
 import ArrowDown from './arrowDown.png';
 import AboutHeader from './text_historia.png';
@@ -21,6 +21,9 @@ import ZNStore from './ZNHalf.png';
 import ZNStoreBorder from './ZNHalfBorder.png';
 import LabelNew from './text_new.png';
 import WelcomeStore from './text_tienda_header.png';
+import Cats from './Cats.png';
+import DeEpoca from './DeEpoca.jpg';
+import Novedades from './Novedades.jpg';
 
 
 export { 
@@ -46,5 +49,8 @@ export {
   ZNStore,
   ZNStoreBorder,
   LabelNew,
-  WelcomeStore
+  WelcomeStore,
+  Cats,
+  Novedades,
+  DeEpoca
 };
