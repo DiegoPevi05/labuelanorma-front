@@ -136,7 +136,7 @@ export default function GiveawayList(giveawayListProps: GiveawayListProps) {
                   <Link 
                     variant="dark"
                     href="/sign-in"
-                    className="w-[12rem]"> 
+                    className="sm:w-[12rem]"> 
                       Iniciar Sesión 
                   </Link>
                 </div>

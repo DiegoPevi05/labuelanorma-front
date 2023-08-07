@@ -81,7 +81,7 @@ const Partners = (partnersProps:PartnerProps) => {
 
   return (
     <>
-      <div className="relative flex flex-col md:flex-row w-full h-full mx-auto px-4 md:px-0">
+      <div className="relative flex flex-col md:flex-row w-full h-full mx-auto px-4 md:px-0 overflow-hidden">
         <div className="relative flex flex-col w-full md:w-1/2 justify-center">
               <div className="relative flex flex-col w-full">
                 <motion.div variants={textVariant()} className="flex w-full justify-center">
@@ -137,4 +137,4 @@ const Partners = (partnersProps:PartnerProps) => {
   );
 };
 
-export default SectionWrapper(Partners, "partners","bg-dark h-screen sm:h-full");
+export default SectionWrapper(Partners, "partners","bg-dark h-full sm:h-screen sm:h-full");

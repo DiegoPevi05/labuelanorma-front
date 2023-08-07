@@ -53,11 +53,11 @@ export function mapInputDataProducts (data:any){
     product.breadcrumbs = [
       {
         name:Item.section,
-        href:"/store?section="+Item.section,
+        href:"/#/store?section="+Item.section,
       },
       {
         name:Item.category,
-        href:"/store?section="+Item.section+"&category="+Item.category,
+        href:"/#/store?section="+Item.section+"&category="+Item.category,
 
       }
     ];
@@ -119,13 +119,13 @@ export function mapInputDataCategory (data:any){
   categories['featured'] = [
         {
           name: 'Novedades',
-          href: '/store?section=All&category=All&size=All&order=Novedades',
+          href: '/#/store?section=All&category=All&size=All&order=Novedades',
           imageSrc: Novedades,
           imageAlt: 'Novedades.',
         },
         {
           name: 'De Epoca',
-          href: '/store?section=All&category=All&size=All&order=DeEpoca',
+          href: '/#/store?section=All&category=All&size=All&order=DeEpoca',
           imageSrc: DeEpoca,
           imageAlt: 'De Epoca',
         }
@@ -258,7 +258,7 @@ const mapProductsData = (data:any) => {
     productMapped.price = product.price;
     productMapped.category_id = product.category_id;
     productMapped.image = import.meta.env.VITE_BACKEND_URL_IMAGE+product.image_url_1;
-    productMapped.href = "null";
+    productMapped.href = "/#/store";
     productMapped.tags = JSON.parse(product.tags).length > 0  ? JSON.parse(product.tags) : [] ;
     productMapped.isnew = product.is_new === 1 ? true : false;
     dataMapped.push(productMapped);

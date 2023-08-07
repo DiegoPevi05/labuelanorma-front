@@ -7,8 +7,8 @@ import { UserIt,StoreNavIt,FilterProductProps,Category } from '../../interfaces/
 
 const navigation:StoreNavIt = {
   pages: [
-    { name: 'Tienda', href: '/store' },
-    { name:'Sorteos y Concursos', href: '/giveaways' }
+    { name: 'Tienda', href: '/#/store' },
+    { name:'Sorteos y Concursos', href: '/#/giveaways' }
   ],
 }
 
@@ -181,12 +181,12 @@ export default function StoreNavbar(storeNavbarProps:StoreNavbarProps) {
                 :
                   <>
                     <div className="flow-root">
-                      <a href="/sign-in" className="-m-2 block p-2 font-medium text-secondary hover:text-primary">
+                      <a href="/#/sign-in" className="-m-2 block p-2 font-medium text-secondary hover:text-primary">
                        Iniciar Sesión 
                       </a>
                     </div>
                     <div className="flow-root">
-                      <a href="/register" className="-m-2 block p-2 font-medium text-secondary hover:text-primary">
+                      <a href="/#/register" className="-m-2 block p-2 font-medium text-secondary hover:text-primary">
                         Registrate
                       </a>
                     </div>
@@ -387,11 +387,11 @@ export default function StoreNavbar(storeNavbarProps:StoreNavbarProps) {
                   </div>
                 :
                   <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                    <a href="/sign-in" className="text-sm font-medium text-secondary hover:text-primary">
+                    <a href="/#/sign-in" className="text-sm font-medium text-secondary hover:text-primary">
                       Inciar Sesión
                     </a>
                     <span className="h-6 w-px bg-secondary" aria-hidden="true" />
-                    <a href="/register" className="text-sm font-medium text-secondary hover:text-primary">
+                    <a href="/#/register" className="text-sm font-medium text-secondary hover:text-primary">
                       Registrate 
                     </a>
                   </div>

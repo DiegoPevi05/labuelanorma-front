@@ -27,8 +27,8 @@ interface userNavIt {
   href : string;
 }
 const navigationUser:userNavIt[] = [
-  { icon: <Gift/>,label:'Ver Sorteos', href: '/giveaways' },
-  { icon: <Store/>,label:'Ir a la Cachina', href: '/store' },
+  { icon: <Gift/>,label:'Ver Sorteos', href: '/#/giveaways' },
+  { icon: <Store/>,label:'Ir a la Cachina', href: '/#/store' },
 ]
 
 interface NavProps {
@@ -50,13 +50,13 @@ const Navbar = (navProps:NavProps) => {
   }
 
   return (
-    <div className="fixed top-0  h-[80px] w-full z-[20] red-orange-gradient">
+    <div className="fixed top-0  h-[60px] sm:h-[80px] w-full z-[20] red-orange-gradient">
           <nav className="flex items-center justify-between px-6 lg:px-8" aria-label="Global">
             <div className="flex lg:flex-1">
               <a href="/">
                 <span className="sr-only">La Abuela Norma</span>
                 <img
-                  className="h-20 w-20"
+                  className="h-16 w-16 sm:h-20 sm:w-20"
                   src={Logo}
                   alt="LaAbuelaNorma"
                 />
@@ -65,22 +65,22 @@ const Navbar = (navProps:NavProps) => {
             <div className="flex lg:hidden flex-row gap-2 items-center justify-end">
               <button onClick={() => setOpenShoppingCart(!openShoppingCart)}>
                 <span className="sr-only">Carrito</span>
-                <ShoppingCart className="h-8 w-8 text-secondary hover:text-primary"/>
+                <ShoppingCart className="h-6 sm:h-8 w-8 text-secondary hover:text-primary"/>
               </button>
-              <a href="/store">
+              <a href="/#/store">
                 <span className="sr-only">Store</span>
-                <Store className="h-8 w-8 text-secondary hover:text-primary"/>
+                <Store className="h-6 sm:h-8 w-8 text-secondary hover:text-primary"/>
               </a>
-              <a href="/giveaways">
+              <a href="/#/giveaways">
                 <span className="sr-only">Giveaway</span>
-                <Gift className="h-8 w-8 text-secondary hover:text-primary"/>
+                <Gift className="h-6 sm:h-8 w-8 text-secondary hover:text-primary"/>
               </a>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(true)}
               >
                 <span className="sr-only">Abrir Menu Principal</span>
-                <AlignJustify className="h-8 w-8 text-secondary hover:text-white" aria-hidden="true" />
+                <AlignJustify className="h-6 sm:h-8 w-8 text-secondary hover:text-white" aria-hidden="true" />
               </button>
             </div>
             <div className="hidden lg:flex lg:gap-x-8 py-6">
@@ -99,16 +99,16 @@ const Navbar = (navProps:NavProps) => {
                 <span className="sr-only">ShoppingCart</span>
                 <ShoppingCart className="h-8 w-8 text-secondary hover:text-primary"/>
               </button>
-              <a href="/store">
+              <a href="/#/store">
                 <span className="sr-only">Store</span>
                 <Store className="h-8 w-8 text-secondary hover:text-primary"/>
               </a>
-              <a href="/giveaways">
+              <a href="/#/giveaways">
                 <span className="sr-only">Giveaway</span>
                 <Gift className="h-8 w-8 text-secondary hover:text-primary"/>
               </a>
               {!user ?
-                <a href="/sign-in" className="text-md font-semibold leading-6 text-secondary hover:text-primary">
+                <a href="/#/sign-in" className="text-md font-semibold leading-6 text-secondary hover:text-primary">
                   Inicio de Sesion <span aria-hidden="true">&rarr;</span>
                 </a>
                 :

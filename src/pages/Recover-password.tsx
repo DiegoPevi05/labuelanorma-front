@@ -97,7 +97,7 @@ const RecoverPassword = () => {
                   </Button>
                 </div>
                 <div className="flex items-center justify-center">
-                  <a href="/validate-code-password" className="font-medium text-secondary hover:red-text-gradient">
+                  <a href="/#/validate-code-password" className="font-medium text-secondary hover:red-text-gradient">
                     Si ya tienes tu codigo ingresalo Aqui
                   </a>
                 </div>

@@ -101,13 +101,13 @@ const LayoutProducts = (layoutProductProps:LayoutProductsProps) => {
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
 
-          <div className="flex items-baseline justify-between border-b border-fifth pb-6 pt-24">
+          <div className="flex flex-col sm:flex-row items-baseline justify-between border-b border-fifth pb-6 pt-24">
             <img src={WelcomeStore} alt='contact_header' className='relative h-32 w-auto  object-contain' />
 
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
-                <div>
-                  <Menu.Button className="group inline-flex justify-center text-sm font-medium text-secondary hover:text-primary">
+                <div >
+                  <Menu.Button className="pl-24 group inline-flex justify-center text-sm font-medium text-secondary hover:text-primary">
                     Ordenar
                     <ChevronDown
                       className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-secondary group-hover:text-primary"

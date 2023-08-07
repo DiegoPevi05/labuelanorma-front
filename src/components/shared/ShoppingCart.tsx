@@ -138,7 +138,7 @@ export default function ShoppingCartComp(propShoppingCart:PropShoppingCart) {
                       <div className="mt-6">
                         <Link
                           variant="dark"
-                          href="/store/checkout"
+                          href="/#/store/checkout"
                           className="font-medium flex items-center justify-center rounded-md px-6 py-3 shadow-sm"
                         >
                           Ir a Pagar

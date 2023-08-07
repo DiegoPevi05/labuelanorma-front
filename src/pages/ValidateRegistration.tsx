@@ -52,7 +52,7 @@ const ValidateRegistration = () => {
                     Felicidades tu cuenta ha sido activada exitosamente!
                   </h2>
                   <div className="w-full h-auto flex justify-center py-4">
-                    <a href="/sign-in" className="text-center text-primary hover:text-secondary cursor-pointer text-[24px]">Iniciar Sesión</a>
+                    <a href="/#/sign-in" className="text-center text-primary hover:text-secondary cursor-pointer text-[24px]">Iniciar Sesión</a>
                   </div>
                 </div>
               </div>

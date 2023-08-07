@@ -106,7 +106,7 @@ const SignIn = (signInProps:SignInProps) => {
 
                 <div className="flex items-center justify-end">
                   <div className="text-sm">
-                    <a href="/recover-password" className="font-medium text-secondary hover:text-primary">
+                    <a href="/#/recover-password" className="font-medium text-secondary hover:text-primary">
                       Olvidaste tu contraseña?
                     </a>
                   </div>
@@ -124,7 +124,7 @@ const SignIn = (signInProps:SignInProps) => {
                   </Button>
                 </div>
                 <div className="flex items-center justify-center">
-                  <a href="/register" className="font-medium text-secondary hover:text-primary">
+                  <a href="/#/register" className="font-medium text-secondary hover:text-primary">
                     ¿No tienes una cuenta?
                   </a>
                 </div>
