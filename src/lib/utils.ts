@@ -61,7 +61,7 @@ export function mapInputDataProducts (data:any){
 
       }
     ];
-    product.defaultImage = import.meta.env.VITE_BACKEND_URL+Item.image_url_1;
+    product.defaultImage = import.meta.env.VITE_BACKEND_URL_IMAGE+Item.image_url_1;
 
     var images:any[] = [];
 
