@@ -106,7 +106,7 @@ const Store = (propsStore:PropsStore) => {
   }, []);
 
   return (
-    <div className="h-full w-full flex flex-col">
+    <div className="h-full w-full flex flex-col overflow-hidden">
       <motion.div variants={textVariant()} className="relative flex flex-col sm:flex-row w-full h-1/3 sm:h-full justify-center items-center sm:justify-between">
         <img src={StoreHeader} alt='store_header' className='relative w-full sm:w-1/2 md:w-1/3 h-24 sm:h-auto object-contain' />
 

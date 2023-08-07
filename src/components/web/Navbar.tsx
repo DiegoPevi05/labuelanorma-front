@@ -44,6 +44,13 @@ const Navbar = (navProps:NavProps) => {
   const [toggleProfile,setToggleProfile] = useState(false);
   const [openShoppingCart,setOpenShoppingCart] = useState(false);
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
 
   const closeShoppingCart = () => {
     setOpenShoppingCart(false);
@@ -85,7 +92,15 @@ const Navbar = (navProps:NavProps) => {
             </div>
             <div className="hidden lg:flex lg:gap-x-8 py-6">
               {navigation.map((item) => (
-                <a key={item.name} href={item.href} className="text-xl font-bold leading-6 text-secondary hover:text-primary">
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-xl font-bold leading-6 text-secondary hover:text-primary"
+                  onClick={(e) => {
+                    e.preventDefault(); // Prevent the default anchor tag behavior (page refresh)
+                    scrollToSection(item.href.slice(1)); // Removing '#' from the href to get the element ID
+                  }}
+                >
                   {item.label}
                 </a>
               ))}
@@ -195,6 +210,10 @@ const Navbar = (navProps:NavProps) => {
                               key={item.name}
                               href={item.href}
                               className="block rounded-lg px-3 py-2 text-lg font-semibold leading-7 text-secondary hover:text-primary"
+                              onClick={(e) => {
+                                e.preventDefault(); // Prevent the default anchor tag behavior (page refresh)
+                                scrollToSection(item.href.slice(1)); // Removing '#' from the href to get the element ID
+                              }}
                             >
                               {item.label}
                             </a>

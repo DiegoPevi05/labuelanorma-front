@@ -129,7 +129,7 @@ const Contact = () => {
             className="w-full h-[140px] sm:h-[180px] lg:h-auto object-contain"
           />
       </motion.div>
-      <a href='#' className="absolute top-40 right-4 w-auto flex justify-center">
+      <a href='#' className="absolute top-20 sm:top-40 sm:right-4 w-auto flex justify-center">
         <motion.div
           variants={fadeIn("up", "spring", 3, 0.75)}
           className="w-auto h-[120px] sm:h-[150px] overflow-hidden flex justify-center items-center p-2"
